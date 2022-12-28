@@ -23,7 +23,8 @@
 
                     <span class="form-text text-danger"
                             *ngIf="nombreValido()"> 
-                        Debe de ser de 3 letras</span>
+                        Debe de ser de 3 letras
+                    </span>
                 </div>
             </div>
 
@@ -40,6 +41,12 @@
                             required
                             min="0">
 
+                            
+                    <span class="form-text text-danger"
+                            *ngIf="precioValido()"> 
+                    El precio deber ser mayor o igual a 0
+                    </span>
+
                 </div>
             </div>
 
@@ -51,13 +58,17 @@
                             class="form-control"
                             ngModel
                             name="existencias"
-                            placeholder="Existencias del producto">
+                            customMin
+                            [minimo]="0"
+                            placeholder="Existencias del producto"
+                            required>
                 </div>
             </div>
 
             <div class="row">
                 <div class="col">
                     <button type="submit"
+                    [disabled]="miFormulario.invalid"
                             class="btn btn-primary float-end">
                         Guardar
                     </button>
@@ -83,6 +94,9 @@
 
         <span>Value</span>
         <pre>{{ miFormulario.value | json }}</pre>
+
+        <span>CustomDirective</span>
+        <pre>{{ customDirective() | json }}</pre>
 
     </div>
 </div>
