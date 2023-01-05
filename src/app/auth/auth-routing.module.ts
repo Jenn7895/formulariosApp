@@ -1,7 +1,8 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { RegistroComponent } from './pages/registro/registro.component';
+
 import { LoginComponent } from './pages/login/login.component';
+import { RegistroComponent } from './pages/registro/registro.component';
 
 const routes: Routes = [
   {
@@ -9,7 +10,7 @@ const routes: Routes = [
     children: [
       { path: 'registro', component: RegistroComponent },
       { path: 'login', component:LoginComponent },
-      { path: '**', redirectTo:'login' }
+      { path: '**', redirectTo:'registro' }
     ]
   }
 ];
