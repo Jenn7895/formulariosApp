@@ -33,9 +33,24 @@
                             formControlName="email"
                             placeholder="Email del usuario">
 
-                    <span class="form-text text-danger"
-                            *ngIf="campoNoValido('email')">
+                    <!-- PRIMERA FORMA DE VALIDAR ERRORES: LÓGICA EN HTML -->
+                    <!-- <span class="form-text text-danger"
+                            *ngIf=" emailRequired()">
                         El correo es obligatorio
+                    </span>
+                    <span class="form-text text-danger"
+                            *ngIf=" emailFormato()">
+                        El valor no tiene formato de correo
+                    </span>
+                    <span class="form-text text-danger"
+                            *ngIf=" emailTomado()">
+                        El correo electrónico ya fue tomado
+                    </span> -->
+
+                    <!-- SEGUNDA FORMA DE VALIDAR ERRORES: PERSONALIZAR ERRORES -->
+                    <span class="form-text text-danger"
+                    *ngIf="campoNoValido('email')">
+                    {{ emailErrorMsg }}
                     </span>
                 </div>
             </div>
@@ -90,6 +105,7 @@
             <div class="row">
                 <div class="col">
                     <button class="btn btn-primary float-end"
+                            [disabled]="miFormulario.pending"
                             type="submit">
                         Crear
                     </button>
@@ -103,6 +119,9 @@
 </div>
 
 <h2>Form Valid: {{ miFormulario.valid }}</h2>
+<h2>Form Status: {{ miFormulario.status }}</h2>
+<h2>Form Pending: {{ miFormulario.pending }}</h2>
+
 <h2>Form errors</h2>
 <pre>{{ miFormulario.errors | json }}</pre>
 

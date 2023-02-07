@@ -21,8 +21,20 @@ export class RegistroComponent implements OnInit {
     password2: ['', [ Validators.required ]],
   }, {
     validators: [ this.validatorService.camposIguales('password','password2') ]
+  });
+
+  get emailErrorMsg(): string {
+    
+    const errors = this.miFormulario.get('email')?.errors;
+    if ( errors?.['required'] ) {
+      return 'Email es obligatorio';
+    } else if ( errors?.['pattern'] ) {
+      return 'El valor ingresado no tiene formato de correo electrónico';
+    } else if ( errors?.['emailTomado'] ) {
+      return 'El email ya fue tomado';
+    }
+    return '';
   }
-  )
 
   constructor( private fb: FormBuilder, 
                 private validatorService: ValidatorService, 
@@ -33,7 +45,9 @@ export class RegistroComponent implements OnInit {
     this.miFormulario.reset({
       nombre: 'Jenn Cuevas',
       email: 'test1@test.com',
-      username: 'jenn_07'
+      username: 'jenn_07',
+      password: '123456',
+      password2: '123456'
     })
   }
 
@@ -41,6 +55,22 @@ export class RegistroComponent implements OnInit {
     return this.miFormulario.get(campo)?.invalid
             && this.miFormulario.get(campo)?.touched;
   }
+
+// <!-- PRIMERA FORMA DE VALIDAR ERRORES: LÓGICA EN HTML -->
+/*  emailRequired() {
+    return this.miFormulario.get('email')?.errors?.['required']
+            && this.miFormulario.get('email')?.touched;
+  }
+
+  emailFormato() {
+    return this.miFormulario.get('email')?.errors?.['pattern']
+            && this.miFormulario.get('email')?.touched;
+  }
+
+  emailTomado() {
+    return this.miFormulario.get('email')?.errors?.['emailTomado']
+            && this.miFormulario.get('email')?.touched;
+  } */
 
   submitFormulario() {
 
